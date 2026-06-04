@@ -1369,6 +1369,12 @@ body:not(.bar-dismissed) .hero{ padding-top:calc(8rem + var(--theme-bar-h)); }
   .theme-bar-icon{ display:none; }
 }
 
+
+/* form submit feedback states */
+.form-submit.is-sent{ background:linear-gradient(135deg,#16a34a,#22c55e) !important; }
+.form-submit.is-error{ background:linear-gradient(135deg,#dc2626,#ef4444) !important; }
+.form-submit[disabled]{ cursor:default; }
+
 </style>
 <script>
 (function(){
@@ -1794,13 +1800,13 @@ body:not(.bar-dismissed) .hero{ padding-top:calc(8rem + var(--theme-bar-h)); }
       <h3>Let's have a conversation.</h3>
       <p>Whether you have a fully fleshed-out vision or just a rough idea, I'd love to hear about it. Every great project starts with a simple hello.</p>
       <div class="contact-methods">
-        <a href="/cdn-cgi/l/email-protection#c5a6a4b2a1a4a6b7a0a4b1a0b685a2a8a4aca9eba6aaa8" class="contact-method">
+        <a href="/cdn-cgi/l/email-protection#3c5f5d4b585d5f4e595d48594f7c5b515d5550125f5351" class="contact-method">
           <div class="contact-method-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           </div>
           <div class="contact-method-text">
             <span>Email</span>
-            <p><span class="__cf_email__" data-cfemail="54373523303537263135203127143339353d387a373b39">[email&#160;protected]</span></p>
+            <p><span class="__cf_email__" data-cfemail="a1c2c0d6c5c0c2d3c4c0d5c4d2e1c6ccc0c8cd8fc2cecc">[email&#160;protected]</span></p>
           </div>
         </a>
         <a href="tel:7059947249" class="contact-method">
@@ -1828,7 +1834,7 @@ body:not(.bar-dismissed) .hero{ padding-top:calc(8rem + var(--theme-bar-h)); }
            Replace YOUR_FORM_ID below with your actual Formspree endpoint.
            Example: https://formspree.io/f/xyzabcde
       ══════════════════════════ -->
-      <form action="https://formspree.io/f//xaqaqkpb" method="POST">
+      <form action="https://formspree.io/f/xaqaqkpb" method="POST">
         <div class="form-row">
           <div class="form-group">
             <label for="name">Your Name</label>
@@ -1862,11 +1868,12 @@ body:not(.bar-dismissed) .hero{ padding-top:calc(8rem + var(--theme-bar-h)); }
           <label for="budget">Estimated Budget</label>
           <select id="budget" name="budget">
             <option value="" disabled selected>Select a range (optional)</option>
-            <option value="under-1k">Under $1,000</option>
-            <option value="1k-3k">$1,000 – $3,000</option>
-            <option value="3k-5k">$3,000 – $5,000</option>
-            <option value="5k-10k">$5,000 – $10,000</option>
-            <option value="10k+">$10,000+</option>
+            <option value="under-500">$500 or less</option>
+            <option value="500-1k">$500 – $1,000</option>
+            <option value="1k-2k">$1,000 – $2,000</option>
+            <option value="2k-3500">$2,000 – $3,500</option>
+            <option value="3500-5k">$3,500 – $5,000</option>
+            <option value="5k+">$5,000+</option>
           </select>
         </div>
         <div class="form-group">
@@ -2063,19 +2070,55 @@ body:not(.bar-dismissed) .hero{ padding-top:calc(8rem + var(--theme-bar-h)); }
     }
   })();
 
-  // ─── Form submission feedback ───
+  // ─── Form submission (AJAX) with Sent / error feedback ───
   const form = document.querySelector('.contact-form form');
   if (form) {
-    form.addEventListener('submit', function(e) {
-      const btn = form.querySelector('.form-submit');
-      btn.textContent = 'Sending...';
-      btn.style.opacity = '0.7';
-      // Formspree handles the actual submission
+    const btn = form.querySelector('.form-submit');
+    const defaultLabel = btn ? btn.textContent.trim() : 'Send Message';
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; btn.style.opacity = '0.7'; }
+      try {
+        const res = await fetch(form.action, {
+          method: form.method || 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.reset();
+          if (btn) {
+            btn.textContent = 'Sent ✓';
+            btn.style.opacity = '1';
+            btn.classList.add('is-sent');
+          }
+          // restore the button after a few seconds so they can send another
+          setTimeout(function(){
+            if (btn) {
+              btn.textContent = defaultLabel;
+              btn.disabled = false;
+              btn.classList.remove('is-sent');
+            }
+          }, 4000);
+        } else {
+          throw new Error('Bad response');
+        }
+      } catch (err) {
+        if (btn) {
+          btn.textContent = 'Something went wrong — try again';
+          btn.style.opacity = '1';
+          btn.disabled = false;
+          btn.classList.add('is-error');
+          setTimeout(function(){
+            btn.textContent = defaultLabel;
+            btn.classList.remove('is-error');
+          }, 4000);
+        }
+      }
     });
   }
 
 })();
 </script>
 
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a051bf772fcc57af',t:'MTc4MDM1MzkxOA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a0520f22e884860b',t:'MTc4MDM1NzE4MQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a069910af8d03786',t:'MTc4MDYwMzY3NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a051bf772fcc57af',t:'MTc4MDM1MzkxOA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a0520f22e884860b',t:'MTc4MDM1NzE4MQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a069ab2bae1f4f09',t:'MTc4MDYwNDc0NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
