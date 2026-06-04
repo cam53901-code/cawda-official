@@ -7,7 +7,8 @@
 <meta name="description" content="CAWDA Creative Limited — Premium web design, branding & digital experiences at honest prices. No corporate bloat, just stunning results.">
 <meta name="author" content="CAWDA Creative Limited">
 <meta name="robots" content="index, follow">
-<meta name="theme-color" content="#0c0a12">
+<meta name="theme-color" content="#14101c" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <link rel="canonical" href="https://www.cawdacreates.com/">
 
 <!-- Favicon (inline SVG mark) -->
@@ -89,6 +90,17 @@
   --text-muted:#897c92;
   --border-color:rgba(208,57,214,.18);
   --border-glow:rgba(255,107,157,.45);
+  /* overlay RGB triples — flipped in light mode below */
+  --ov-primary:20,16,28;
+  --ov-deep:10,10,15;
+  --ov-sec:26,20,36;
+  --ov-card:33,26,46;
+  --ov-shadow:0,0,0;
+  --hero-wash:linear-gradient(180deg,#14101c 0%, #1a1424 100%);
+  --hero-photo-opacity:1;
+  --grid-line:rgba(124,58,237,.06);
+  --text-glow-shadow:0 0 30px rgba(168,85,247,.3),0 0 60px rgba(192,38,211,.15);
+  --card-elev:0 10px 30px rgba(0,0,0,.25);
   --font-main:'Segoe UI',system-ui,-apple-system,sans-serif;
   --font-display:'Segoe UI',system-ui,-apple-system,sans-serif;
   --section-padding:clamp(4rem,10vw,8rem) clamp(1rem,5vw,4rem);
@@ -193,7 +205,7 @@ body:hover .cursor-glow{opacity:1}
   background:transparent;
 }
 .nav.scrolled{
-  background:rgba(10,10,15,.92);
+  background:rgba(var(--ov-deep),.92);
   backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border-color);
   padding:.7rem 2rem;
@@ -450,7 +462,7 @@ section{position:relative;z-index:1}
   padding:2rem;position:relative;z-index:1;
 }
 .about-icon-item{
-  background:rgba(10,10,15,.5);
+  background:rgba(var(--ov-deep),.5);
   border:1px solid var(--border-color);
   border-radius:var(--radius-sm);
   padding:1.5rem;
@@ -577,7 +589,7 @@ section{position:relative;z-index:1}
 .portfolio-card:hover .portfolio-card-bg{transform:scale(1.08);filter:brightness(.7)}
 .portfolio-overlay{
   position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(10,10,15,.95) 0%,rgba(10,10,15,.3) 50%,transparent);
+  background:linear-gradient(to top,rgba(var(--ov-deep),.95) 0%,rgba(var(--ov-deep),.3) 50%,transparent);
   display:flex;flex-direction:column;justify-content:flex-end;
   padding:2rem;
   opacity:0;
@@ -951,8 +963,8 @@ section{position:relative;z-index:1}
 .hero-bg-image::after {
   content:''; position:absolute; inset:0;
   background:
-    radial-gradient(ellipse at center,transparent 0%,rgba(20,16,28,.55) 55%,rgba(20,16,28,.95) 100%),
-    linear-gradient(180deg,rgba(20,16,28,.3) 0%,transparent 30%,rgba(20,16,28,.65) 100%),
+    radial-gradient(ellipse at center,transparent 0%,rgba(var(--ov-primary),.55) 55%,rgba(var(--ov-primary),.95) 100%),
+    linear-gradient(180deg,rgba(var(--ov-primary),.3) 0%,transparent 30%,rgba(var(--ov-primary),.65) 100%),
     linear-gradient(45deg,rgba(255,126,107,.12),transparent 50%,rgba(208,57,214,.15));
 }
 .hero-content { position:relative; z-index:2 }
@@ -973,7 +985,7 @@ section{position:relative;z-index:1}
   content:''; position:absolute; inset:0;
   background:
     linear-gradient(135deg,rgba(255,126,107,.08),transparent 40%,rgba(208,57,214,.1)),
-    linear-gradient(180deg,var(--bg-primary) 0%,rgba(20,16,28,.85) 30%,rgba(20,16,28,.92) 100%);
+    linear-gradient(180deg,var(--bg-primary) 0%,rgba(var(--ov-primary),.85) 30%,rgba(var(--ov-primary),.92) 100%);
   pointer-events:none;
 }
 .about > * { position:relative; z-index:1 }
@@ -1021,7 +1033,7 @@ section{position:relative;z-index:1}
 .service-image::after {
   content:''; position:absolute; inset:0;
   background:
-    linear-gradient(180deg,rgba(33,26,46,.4) 0%,rgba(33,26,46,.92) 90%),
+    linear-gradient(180deg,rgba(var(--ov-card),.4) 0%,rgba(var(--ov-card),.92) 90%),
     linear-gradient(135deg,rgba(255,107,157,.15),transparent 60%,rgba(255,126,107,.18));
   pointer-events:none;
 }
@@ -1050,7 +1062,7 @@ section{position:relative;z-index:1}
 .divider-banner::after {
   content:''; position:absolute; inset:0;
   background:
-    radial-gradient(ellipse at center,transparent 0%,rgba(20,16,28,.85) 80%),
+    radial-gradient(ellipse at center,transparent 0%,rgba(var(--ov-primary),.85) 80%),
     linear-gradient(135deg,rgba(255,126,107,.12),transparent 50%,rgba(208,57,214,.15));
 }
 .divider-content {
@@ -1078,7 +1090,7 @@ section{position:relative;z-index:1}
 .process::after {
   content:''; position:absolute; inset:0;
   background:
-    linear-gradient(180deg,var(--bg-secondary) 0%,rgba(26,20,36,.92) 50%,var(--bg-secondary) 100%),
+    linear-gradient(180deg,var(--bg-secondary) 0%,rgba(var(--ov-sec),.92) 50%,var(--bg-secondary) 100%),
     linear-gradient(135deg,rgba(255,126,107,.06),transparent 50%);
   pointer-events:none;
 }
@@ -1089,7 +1101,7 @@ section{position:relative;z-index:1}
 .contact::after {
   content:''; position:absolute; inset:0;
   background:
-    radial-gradient(ellipse at center,rgba(20,16,28,.78),rgba(20,16,28,.98)),
+    radial-gradient(ellipse at center,rgba(var(--ov-primary),.78),rgba(var(--ov-primary),.98)),
     linear-gradient(135deg,rgba(255,126,107,.08),transparent 50%,rgba(208,57,214,.12));
   pointer-events:none;
 }
@@ -1173,7 +1185,7 @@ section{position:relative;z-index:1}
 .testimonial-card:hover{
   border-color:var(--border-glow);
   transform:translateY(-6px);
-  box-shadow:0 20px 45px rgba(0,0,0,.35);
+  box-shadow:0 20px 45px rgba(var(--ov-shadow),.35);
 }
 .testimonial-card .quote-mark{
   font-size:3.5rem;line-height:1;font-weight:800;
@@ -1192,6 +1204,133 @@ section{position:relative;z-index:1}
 }
 .testimonial-name{font-weight:700;font-size:.95rem;color:var(--text-primary)}
 .testimonial-role{font-size:.8rem;color:var(--text-muted)}
+
+
+/* ════════════════════════════════════════════════════════
+   AUTO THEME — base hooks consume theme vars (dark = default)
+   ════════════════════════════════════════════════════════ */
+.hero-bg-grid{
+  background-image:
+    linear-gradient(var(--grid-line) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid-line) 1px,transparent 1px) !important;
+}
+.text-glow{ text-shadow:var(--text-glow-shadow) !important; }
+
+/* ════════════════════════════════════════════════════════
+   LIGHT MODE — when the user's device prefers light
+   ════════════════════════════════════════════════════════ */
+@media (prefers-color-scheme: light){
+  :root{
+    --bg-primary:#ffffff;
+    --bg-secondary:#f5f1fb;
+    --bg-card:#ffffff;
+    --bg-card-hover:#faf7fe;
+    --purple-deep:#6d28b8;
+    --purple-mid:#8b3fd6;
+    --purple-light:#a855f7;
+    --magenta:#c026d3;
+    --magenta-light:#d946ef;
+    --pink:#ec4899;
+    --coral:#fb7185;
+    --peach:#fdba8c;
+    --amber:#f59e0b;
+    --warm-pink:#f472b6;
+    --cream:#fff7ed;
+    --gradient-main:linear-gradient(135deg,#7c3aed 0%,#c026d3 38%,#ec4899 72%,#fb7185 100%);
+    --gradient-warm:linear-gradient(135deg,#c026d3 0%,#ec4899 50%,#fdba8c 100%);
+    --gradient-subtle:linear-gradient(135deg,#7c3aed 0%,#9333ea 50%,#c026d3 100%);
+    --gradient-glow:linear-gradient(135deg,rgba(124,58,237,.10),rgba(192,38,211,.08),rgba(251,113,133,.08));
+    --text-primary:#1e1530;
+    --text-secondary:#564a68;
+    --text-muted:#8a7f9c;
+    --border-color:rgba(124,58,237,.14);
+    --border-glow:rgba(192,38,211,.40);
+    /* overlay triples flip to WHITE / light lavender */
+    --ov-primary:255,255,255;
+    --ov-deep:255,255,255;
+    --ov-sec:245,241,251;
+    --ov-card:245,241,251;
+    --ov-shadow:30,21,48;
+    --grid-line:rgba(124,58,237,.05);
+    --text-glow-shadow:none;
+    --card-elev:0 10px 30px rgba(30,21,48,.06);
+  }
+
+  /* Soft gradient page backdrop instead of flat black */
+  body{ background:var(--bg-primary); color:var(--text-primary); }
+  body::before{
+    content:''; position:fixed; inset:0; z-index:-2;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% -5%, rgba(192,38,211,.10), transparent 60%),
+      radial-gradient(ellipse 55% 45% at 0% 5%, rgba(124,58,237,.10), transparent 55%),
+      radial-gradient(ellipse 70% 50% at 50% 105%, rgba(251,113,133,.08), transparent 60%),
+      var(--bg-primary);
+  }
+
+  /* HERO: replace dark photo with a light, sunny gradient wash */
+  .hero-bg-image{
+    background:
+      radial-gradient(ellipse 50% 60% at 78% 12%, rgba(236,72,153,.16), transparent 60%),
+      radial-gradient(ellipse 55% 65% at 12% 18%, rgba(124,58,237,.16), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 50% 100%, rgba(251,113,133,.12), transparent 60%),
+      linear-gradient(180deg,#fbf9ff 0%, #f6f1fc 100%) !important;
+    opacity:1 !important;
+  }
+  .hero-bg-image::after{ display:none !important; }
+
+  .cursor-glow{
+    background:radial-gradient(circle,rgba(192,38,211,.10) 0%,transparent 70%) !important;
+    mix-blend-mode:multiply;
+  }
+  .particle{ opacity:.30 !important; }
+
+  .nav.scrolled{
+    background:rgba(255,255,255,.85) !important;
+    -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px);
+    box-shadow:0 6px 24px rgba(30,21,48,.07);
+    border-bottom:1px solid var(--border-color);
+  }
+  .nav a{ color:var(--text-secondary); }
+  .nav a:hover{ color:var(--purple-deep); }
+
+  .price-card, .contact-form, .about-icon-item, .process-step, .service-card{
+    background:#ffffff !important;
+    border:1px solid var(--border-color);
+    box-shadow:0 10px 30px rgba(30,21,48,.06);
+  }
+  .price-card:hover{ box-shadow:0 18px 45px rgba(124,58,237,.14); }
+
+  input, textarea, select{
+    background:#fbfaff !important;
+    border:1.5px solid var(--border-color) !important;
+    color:var(--text-primary) !important;
+  }
+  input::placeholder, textarea::placeholder{ color:var(--text-muted); }
+  input:focus, textarea:focus, select:focus{ border-color:var(--purple-light) !important; }
+
+  .hero-badge{
+    background:rgba(124,58,237,.07) !important;
+    border:1px solid rgba(124,58,237,.20) !important;
+    color:var(--purple-deep) !important;
+  }
+  .btn-secondary{
+    background:#ffffff !important;
+    border:1.5px solid rgba(124,58,237,.35) !important;
+    color:var(--purple-deep) !important;
+  }
+  .btn-secondary:hover{
+    border-color:var(--purple-light) !important;
+    background:rgba(124,58,237,.06) !important;
+  }
+
+  .footer, footer{
+    background:var(--bg-secondary) !important;
+    border-top:1px solid var(--border-color);
+  }
+  .divider-banner{
+    background:linear-gradient(135deg,#faf5ff 0%,#fff1f5 100%) !important;
+  }
+}
 
 </style>
 </head>
@@ -1593,13 +1732,13 @@ section{position:relative;z-index:1}
       <h3>Let's have a conversation.</h3>
       <p>Whether you have a fully fleshed-out vision or just a rough idea, I'd love to hear about it. Every great project starts with a simple hello.</p>
       <div class="contact-methods">
-        <a href="/cdn-cgi/l/email-protection#d4b7b5a3b0b5b7a6b1b5a0b1a794b3b9b5bdb8fab7bbb9" class="contact-method">
+        <a href="/cdn-cgi/l/email-protection#2645475142474554434752435566414b474f4a0845494b" class="contact-method">
           <div class="contact-method-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           </div>
           <div class="contact-method-text">
             <span>Email</span>
-            <p><span class="__cf_email__" data-cfemail="583b392f3c393b2a3d392c3d2b183f35393134763b3735">[email&#160;protected]</span></p>
+            <p><span class="__cf_email__" data-cfemail="6300021407020011060217061023040e020a0f4d000c0e">[email&#160;protected]</span></p>
           </div>
         </a>
         <a href="tel:7059947249" class="contact-method">
@@ -1852,6 +1991,5 @@ section{position:relative;z-index:1}
 })();
 </script>
 
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a051bf772fcc57af',t:'MTc4MDM1MzkxOA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a0520f22e884860b',t:'MTc4MDM1NzE4MQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a0695e929c42ac76',t:'MTc4MDYwMTYwOA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"1954b47c125f43f8b4338b3c4f804e4f","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a051bf772fcc57af',t:'MTc4MDM1MzkxOA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a0520f22e884860b',t:'MTc4MDM1NzE4MQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a06979cba990abf1',t:'MTc4MDYwMjcyMw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
